@@ -1,0 +1,28 @@
+-- This script will work in Solara or other Roblox Executors
+
+-- Create a ScreenGui for the GUI
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a Jump Booster button
+local jumpButton = Instance.new("TextButton")
+jumpButton.Size = UDim2.new(0, 200, 0, 50)
+jumpButton.Position = UDim2.new(0.5, -100, 0.5, -25)
+jumpButton.Text = "Boost Jump"
+jumpButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+jumpButton.Parent = screenGui
+
+-- Function to boost jump height
+local function boostJump()
+    local character = player.Character
+    if character then
+        local humanoid = character:FindFirstChild("Humanoid")
+        if humanoid then
+            humanoid.JumpPower = 100  -- Set jump power to 100 (default is 50)
+        end
+    end
+end
+
+-- When button is clicked, increase jump height
+jumpButton.MouseButton1Click:Connect(boostJump)
