@@ -5,13 +5,16 @@ local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
--- Create a Jump Booster button
+-- Create a custom Jump Booster button
 local jumpButton = Instance.new("TextButton")
-jumpButton.Size = UDim2.new(0, 200, 0, 50)
-jumpButton.Position = UDim2.new(0.5, -100, 0.5, -25)
-jumpButton.Text = "Boost Jump"
-jumpButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-jumpButton.Parent = screenGui
+jumpButton.Size = UDim2.new(0, 250, 0, 60)  -- Make button larger
+jumpButton.Position = UDim2.new(0.5, -125, 0.5, -30)  -- Position button at the center of the screen
+jumpButton.Text = "Activate Jump Boost"  -- Change text
+jumpButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255)  -- Blue button color
+jumpButton.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White text color
+jumpButton.Font = Enum.Font.GothamBold  -- Bold font
+jumpButton.TextSize = 24  -- Set text size to 24
+jumpButton.Parent = screenGui  -- Add the button to the screen GUI
 
 -- Function to boost jump height
 local function boostJump()
@@ -26,3 +29,27 @@ end
 
 -- When button is clicked, increase jump height
 jumpButton.MouseButton1Click:Connect(boostJump)
+
+-- Minimize the GUI by hiding it
+local isGuiVisible = true
+local function toggleGuiVisibility()
+    if isGuiVisible then
+        screenGui.Enabled = false  -- Hide the GUI
+    else
+        screenGui.Enabled = true  -- Show the GUI
+    end
+    isGuiVisible = not isGuiVisible
+end
+
+-- Listen for the Right Shift key press to show/hide the GUI
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    -- Check if the Right Shift key is pressed
+    if input.KeyCode == Enum.KeyCode.LeftShift then
+        toggleGuiVisibility()  -- Toggle GUI visibility
+    end
+end)
+
+-- Load the external script from the provided GitHub URL
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Nuggethair/Nuggethair/refs/heads/main/JumpboostsHax", true))()
