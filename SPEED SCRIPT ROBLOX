@@ -1,0 +1,30 @@
+-hello, just copy paste the following. If it does not work, use the executor SOLARA!
+------------------------------------------------------------------------------------
+-- LocalScript to be executed in an Executor
+
+-- Create the GUI
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player.PlayerGui  -- This adds the GUI to the player's PlayerGui
+
+-- Create the button
+local button = Instance.new("TextButton")
+button.Parent = screenGui  -- Add the button to the GUI
+button.Size = UDim2.new(0, 200, 0, 50)  -- Set button size (200px width, 50px height)
+button.Position = UDim2.new(0.5, -100, 0.5, -25)  -- Position button in the center of the screen
+button.Text = "Increase Speed"  -- Text displayed on the button
+button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  -- Set the button's color to green
+
+-- Function to increase speed
+local function increaseSpeed()
+    -- Look for the Humanoid in the player's character and increase their WalkSpeed
+    local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.WalkSpeed = humanoid.WalkSpeed + 50  -- Increase WalkSpeed by 50
+    end
+end
+
+-- Connect the button click event
+button.MouseButton1Click:Connect(function()
+    increaseSpeed()  -- Call the function to increase speed when button is clicked
+end)
