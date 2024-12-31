@@ -1,0 +1,63 @@
+-- Solara compatible script to troll players by showing a kick message without actually kicking them
+
+-- Define the player
+local player = game.Players.LocalPlayer
+
+-- Create a GUI for the troll feature
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create a button to open the kick player menu
+local kickButton = Instance.new("TextButton")
+kickButton.Size = UDim2.new(0, 200, 0, 50)
+kickButton.Position = UDim2.new(0.5, -100, 0.5, -25)
+kickButton.Text = "Troll Player"
+kickButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+kickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+kickButton.Font = Enum.Font.GothamBold
+kickButton.TextSize = 24
+kickButton.Parent = screenGui
+
+-- Create a list of players to select for trolling
+local playerList = Instance.new("Frame")
+playerList.Size = UDim2.new(0, 200, 0, 300)
+playerList.Position = UDim2.new(0.5, -100, 0.5, 50)
+playerList.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+playerList.Visible = false
+playerList.Parent = screenGui
+
+-- Add a button for each player to troll
+local function createTrollOption(playerToTroll)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 200, 0, 50)
+    button.Text = "Troll " .. playerToTroll.Name
+    button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.GothamBold
+    button.TextSize = 20
+    button.Parent = playerList
+
+    button.MouseButton1Click:Connect(function()
+        -- Display a fake "kick" message but don't actually kick the player
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(playerToTroll.Name .. " has been kicked from the game!", "All")
+    end)
+end
+
+-- Display the list of players to select from
+kickButton.MouseButton1Click:Connect(function()
+    playerList.Visible = not playerList.Visible  -- Toggle visibility of the list
+    if playerList.Visible then
+        -- Clear any existing player buttons
+        for _, child in pairs(playerList:GetChildren()) do
+            if child:IsA("TextButton") then
+                child:Destroy()
+            end
+        end
+        -- Create a button for each player in the game (excluding the local player)
+        for _, plr in pairs(game.Players:GetChildren()) do
+            if plr ~= player then
+                createTrollOption(plr)
+            end
+        end
+    end
+end)
