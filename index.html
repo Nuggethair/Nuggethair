@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lua Script Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="#scripts">Scripts</a></li>
+      <li><a href="#tutorials">Tutorials</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Lua Script Hub</h1>
+    <p>Free Lua scripts for games and fun!</p>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Scripts Section -->
+    <section id="scripts" class="section">
+      <h2>🤖 Auto Jump Script</h2>
+      <pre><code>
+local player = game.Players.LocalPlayer
+while true do
+    wait(1)
+    player.Character:FindFirstChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+end
+      </code></pre>
+      <button onclick="copyScript(this)">Copy Script</button>
+    </section>
+
+    <section class="section">
+      <h2>⚡ Speed Script</h2>
+      <pre><code>
+local player = game.Players.LocalPlayer
+player.Character.Humanoid.WalkSpeed = 100
+      </code></pre>
+      <button onclick="copyScript(this)">Copy Script</button>
+    </section>
+
+    <section class="section">
+      <h2>🕊️ Fly Script</h2>
+      <pre><code>
+loadstring(game:HttpGet("https://pastebin.com/raw/C2T6Z9tN"))()
+      </code></pre>
+      <button onclick="copyScript(this)">Copy Script</button>
+    </section>
+
+    <section class="section">
+      <h2>👻 Invisible Script</h2>
+      <pre><code>
+local player = game.Players.LocalPlayer
+local char = player.Character
+char:FindFirstChild("Head").Transparency = 1
+char:FindFirstChild("Torso").Transparency = 1
+char:FindFirstChild("HumanoidRootPart").Transparency = 1
+      </code></pre>
+      <button onclick="copyScript(this)">Copy Script</button>
+    </section>
+
+    <!-- Tutorials Section -->
+    <section id="tutorials" class="section">
+      <h2>📘 Tutorials</h2>
+      <p>Tutorials will be added soon! Stay tuned.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <h2>🧠 About</h2>
+      <p>This site was made to share awesome Lua scripts with everyone!</p>
+    </section>
+
+    <!-- YouTube Credit -->
+    <section class="section" style="text-align: center;">
+      <h2>📺 Check Out My YouTube!</h2>
+      <p>
+        Subscribe to
+        <a href="https://www.youtube.com/@JustKiddingYTJK" target="_blank">
+          @JustKiddingYTJK
+        </a>
+        for cool Lua and Roblox videos!
+      </p>
+    </section>
+  </main>
+
+  <!-- Copy Script Button JS -->
+  <script>
+    function copyScript(btn) {
+      const code = btn.previousElementSibling.innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.innerText = "Copied!";
+        setTimeout(() => (btn.innerText = "Copy Script"), 1000);
+      });
+    }
+  </script>
+</body>
+</html>
+
